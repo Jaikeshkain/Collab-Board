@@ -17,6 +17,7 @@ import '../../styles/BoardPage.css'
 import { logAction } from "../../utils/logAction";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/store/store";
+import LoadingPage from "../project/Loading";
 
 export interface Task {
   _id: string;
@@ -58,7 +59,7 @@ const BoardPage: React.FC = () => {
   const [logs,setLogs]=useState<Log[]>([])
   const {data,error,isLoading}=useQuery({
     queryKey:["get tasks"],
-    queryFn:()=>getAllTasks()
+    queryFn:()=>getAllTasks(),
   })
 
   
@@ -262,6 +263,10 @@ const BoardPage: React.FC = () => {
         </div>
       </div>
     );
+  }
+
+  if(isLoading){
+    return <LoadingPage/>
   }
 
 
