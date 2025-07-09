@@ -141,20 +141,6 @@ const BoardPage: React.FC = () => {
     );
   }
 
-  if(tasks.length<1){
-    return (
-      <div className="emptyContainer">
-        <div className="emptyContent">
-          <div className={"emptyIcon"}>📋</div>
-          <h3 className={"emptyTitle"}>No tasks found</h3>
-          <p className={"emptyDescription"}>Create your first task to get started</p>
-          <Link to={"/create-task"} className={"createButton"}>
-            + Create Task
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   if(!token){
     return (
@@ -267,6 +253,21 @@ const BoardPage: React.FC = () => {
 
   if(isLoading){
     return <LoadingPage/>
+  }
+
+    if(!isLoading && tasks.length<1){
+    return (
+      <div className="emptyContainer">
+        <div className="emptyContent">
+          <div className={"emptyIcon"}>📋</div>
+          <h3 className={"emptyTitle"}>No tasks found</h3>
+          <p className={"emptyDescription"}>Create your first task to get started</p>
+          <Link to={"/create-task"} className={"createButton"}>
+            + Create Task
+          </Link>
+        </div>
+      </div>
+    );
   }
 
 
