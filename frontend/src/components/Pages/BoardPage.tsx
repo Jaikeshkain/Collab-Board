@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -9,7 +9,7 @@ import type { DropResult } from "@hello-pangea/dnd";
 import { getAllTasks } from "../../services/TaskService";
 import { useQuery } from "@tanstack/react-query";
 import { TaskCard } from "../tasks/TaskCard";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import socket from "../../lib/socket";
 import axios from "axios";
 import { ApiURL } from "../../services/AuthService";
@@ -50,10 +50,11 @@ export interface Log {
 }
 
 
-const BoardPage: React.FC = () => {
+const BoardPage = () => {
   const userData=useSelector((state:RootState)=>state.auth.user)
   const token=userData?.token
   const user=userData?.user
+  const navigate=useNavigate()
   const [tasks, setTasks] = useState<Task[]>([]);
   const [logs,setLogs]=useState<Log[]>([])
   const {data,error,isLoading}=useQuery({
@@ -153,6 +154,10 @@ const BoardPage: React.FC = () => {
         </div>
       </div>
     );
+  }
+
+  if(!token){
+    return navigate("/login")
   }
 
 
