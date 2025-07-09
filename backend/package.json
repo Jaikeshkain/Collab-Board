@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.ts",
-    "dev": "ts-node-dev --respawn --transpile-only app.ts"
+  "build": "tsc",
+  "start": "node dist/app.js",
+  "dev": "ts-node-dev --respawn --transpile-only app.ts"
   },
   "keywords": [],
   "author": "",
