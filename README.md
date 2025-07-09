@@ -1,45 +1,44 @@
 # 🧠 Collaborative Task Board (MERN + TypeScript)
 
-A full-stack real-time Kanban-style task board built using the **MERN stack** with **TypeScript** on both the frontend and backend. This project allows multiple users to manage tasks collaboratively with:
+A full-stack, real-time Kanban-style task management app built using the **MERN stack** with **TypeScript** on both the frontend and backend. This project enables multiple users to collaborate on tasks seamlessly, featuring:
 
 - 🔁 Real-time updates via **Socket.IO**
-- 🧱 Drag and drop between columns
-- 🎯 Smart assignment of tasks
-- ⚔️ Conflict handling for simultaneous edits
-- 📜 Live activity log panel
+- 🧱 Drag-and-drop task movement between columns
+- 🎯 Smart assignment to the least-busy user
+- ⚔️ Conflict detection and resolution during concurrent edits
+- 📜 Live activity logging panel
 
 ---
 
 ## 🚀 Features
 
-### ✅ Core Task Management
+### ✅ Task Management
 - Create, update, delete tasks
-- Each task includes:
-  - `title`, `description`, `priority`, `status`, `assignedUser`
-  - Status values: `Todo`, `In Progress`, `Done`
+- Task properties: `title`, `description`, `priority`, `status`, `assignedUser`
+- Status options: `Todo`, `In Progress`, `Done`
 
 ### 🔄 Real-Time Collaboration
-- Uses **Socket.IO** to sync task updates and logs live across all users
+- **Socket.IO** ensures instant sync of task updates and activity logs across all users
 
-### 🧱 Drag and Drop Tasks
-- Move tasks between columns (`In Progress` ↔ `Done`)
-- Backend automatically updates status
+### 🧱 Drag & Drop Tasks
+- Move tasks between `In Progress` and `Done` columns
+- Status updates saved in backend and reflected in real time
 
 ### 🎯 Smart Assign
-- Assign task to user with the **fewest active (non-Done) tasks**
-- Automatically updates assignment and logs the action
+- Assign a task to the user with the **fewest active tasks** (excluding `Done`)
+- Automatically logs the action and updates all clients
 
 ### ⚔️ Conflict Handling
-- Detect if another user has updated a task before you
-- Show both versions (yours and server's)
-- Let user choose to:
-  - ✅ Overwrite with their version
+- Detects if another user has edited a task before your update
+- Returns both versions (client + server)
+- Options provided:
+  - ✅ Overwrite with your version
   - 🔄 Merge manually
-  - ❌ Cancel
+  - ❌ Cancel update
 
-### 📜 Activity Log
-- Tracks every task action (`create`, `update`, `delete`, `move`, `assign`)
-- Displays last 20 logs in a live-updating panel
+### 📜 Activity Log Panel
+- Shows the latest 20 task actions (create, update, move, assign, delete)
+- Live updates via `newLog` socket event
 
 ---
 
@@ -55,7 +54,7 @@ A full-stack real-time Kanban-style task board built using the **MERN stack** wi
 
 ### 🔧 Backend
 - Node.js + Express + TypeScript
-- MongoDB + Mongoose
+- MongoDB with Mongoose
 - Socket.IO Server
 - JWT Authentication
 - RESTful APIs
@@ -64,112 +63,126 @@ A full-stack real-time Kanban-style task board built using the **MERN stack** wi
 
 ## 📁 Project Structure
 
+\`\`\`
 Collab-Board/
-  backend/
-    app.ts
-    configs/
-      db.ts
-    controllers/
-      AuthController.ts
-      LogController.ts
-      TaskController.ts
-    middleware/
-      auth.ts
-    models/
-      LogModel.ts
-      TaskModel.ts
-      UserModel.ts
-    package-lock.json
-    package.json
-    routes/
-      AuthRoute.ts
-      LogRoute.ts
-      TaskRoute.ts
-    tsconfig.json
-    types/
-      express/
-        index.d.ts
-  frontend/
-    eslint.config.js
-    index.html
-    package-lock.json
-    package.json
-    public/
-      vite.svg
-    README.md
-    src/
-      App.css
-      App.tsx
-      assets/
-        react.svg
-      components/
-        auth/
-          LoginPage.tsx
-          RegisterPage.tsx
-        Pages/
-          BoardPage.tsx
-          CreateTask.tsx
-          EditTask.tsx
-        tasks/
-          TaskCard.tsx
-      index.css
-      lib/
-        socket.ts
-      main.tsx
-      redux/
-        slices/
-          AuthSlice.ts
-        store/
-          store.ts
-      services/
-        AuthService.ts
-        TaskService.ts
-      styles/
-        BoardPage.css
-        CreateTask.css
-        LoginPage.css
-      utils/
-        logAction.ts
-      vite-env.d.ts
-    tsconfig.app.json
-    tsconfig.json
-    tsconfig.node.json
-    vite.config.ts
-  LICENSE
-  README.md
+│
+├── backend/
+│   ├── app.ts
+│   ├── configs/
+│   │   └── db.ts
+│   ├── controllers/
+│   │   ├── AuthController.ts
+│   │   ├── LogController.ts
+│   │   └── TaskController.ts
+│   ├── middleware/
+│   │   └── auth.ts
+│   ├── models/
+│   │   ├── LogModel.ts
+│   │   ├── TaskModel.ts
+│   │   └── UserModel.ts
+│   ├── routes/
+│   │   ├── AuthRoute.ts
+│   │   ├── LogRoute.ts
+│   │   └── TaskRoute.ts
+│   ├── types/
+│   │   └── express/index.d.ts
+│   └── tsconfig.json
+│
+├── frontend/
+│   ├── public/
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── index.tsx
+│   │   ├── lib/socket.ts
+│   │   ├── redux/
+│   │   │   └── store/store.ts
+│   │   ├── components/
+│   │   │   ├── auth/LoginPage.tsx
+│   │   │   ├── auth/RegisterPage.tsx
+│   │   │   └── tasks/TaskCard.tsx
+│   │   ├── pages/
+│   │   │   ├── BoardPage.tsx
+│   │   │   ├── CreateTask.tsx
+│   │   │   └── EditTask.tsx
+│   │   ├── services/
+│   │   │   ├── AuthService.ts
+│   │   │   └── TaskService.ts
+│   │   ├── styles/
+│   │   │   ├── BoardPage.css
+│   │   │   ├── CreateTask.css
+│   │   │   └── LoginPage.css
+│   │   └── utils/logAction.ts
+│   └── vite.config.ts
+│
+├── README.md
+└── LICENSE
+\`\`\`
 
-  
 ---
 
 ## 📦 Installation & Setup
 
-### 🧪 Backend (Express + TS)
+### 🔧 Backend Setup
 
-```bash
+\`\`\`bash
 cd backend
 npm install
 npm run dev
+\`\`\`
 
+Create a \`.env\` file inside \`backend/\`:
 
-Create .env in backend/:
-
+\`\`\`
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+\`\`\`
 
-## 📦 Installation & Setup
+---
 
-### 🧪 Frontend (React + Vite + TS)
+### 💻 Frontend Setup
 
+\`\`\`bash
 cd frontend
 npm install
 npm run dev
+\`\`\`
 
-## Socket.IO Events
+Make sure your \`ApiURL\` is configured in \`AuthService.ts\` / \`TaskService.ts\` to point to the backend:
 
-Event	Direction	Description
-taskCreated	Server → Client	Broadcasts new task to all users
-taskUpdated	Server → Client	Broadcasts task updates
-taskDeleted	Server → Client	Notifies all clients to remove task
-newLog	Server → Client	Updates activity log in real-time
+\`\`\`ts
+export const ApiURL = "http://localhost:5000";
+\`\`\`
 
+---
+
+## 📡 Socket.IO Events
+
+| Event         | Direction        | Description                               |
+|---------------|------------------|-------------------------------------------|
+| \`taskCreated\` | Server → Client  | New task broadcast                        |
+| \`taskUpdated\` | Server → Client  | Task edit, drag, assign update            |
+| \`taskDeleted\` | Server → Client  | Remove task from all boards               |
+| \`newLog\`      | Server → Client  | Broadcasts a new log to activity panel    |
+
+---
+
+## 🧠 Key Logic Highlights
+
+- **Smart Assign:** Backend checks each user’s active tasks, assigns to the least busy.
+- **Conflict Handling:** Compares \`updatedAt\` timestamps; if different, sends back server version for client to resolve.
+- **Drag-and-Drop:** Updates task status in backend and logs move.
+- **Activity Logging:** All major actions are saved and shown in the log panel in real-time.
+
+---
+
+## 👨‍💻 Author
+
+Built as part of an internship assignment using full-stack TypeScript with real-time collaboration architecture.
+
+---
+
+## 📄 License
+
+This project is open for learning and demonstration purposes. Feel free to use and customize.
