@@ -220,8 +220,8 @@ const BoardPage: React.FC = () => {
                   userId: user?._id, // replace with actual user if needed
                   details: `${user?.username}: Task "${draggedTask.title}" moved to ${newStatus}`,
                 })
-              } catch (error) {
-                console.error("Failed to update task status", error);
+              } catch (err) {
+                console.error("Failed to update task status", err);
               }
             }}
           >
