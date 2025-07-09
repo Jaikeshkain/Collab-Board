@@ -22,7 +22,7 @@ const app = express();
 const server=http.createServer(app)
 export const io = new Server(server,{
   cors:{
-    origin:"https://collab-board-u698.onrender.com/",
+    origin:"https://collab-board-alpha.vercel.app/",
     methods:["GET","POST","PUT","DELETE"]
   }
 })
@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cors({
-  origin: "https://collab-board-u698.onrender.com/",
+  origin: "https://collab-board-alpha.vercel.app/",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
