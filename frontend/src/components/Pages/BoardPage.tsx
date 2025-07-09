@@ -51,7 +51,9 @@ export interface Log {
 
 
 const BoardPage: React.FC = () => {
-  const {token,user}=useSelector((state:RootState)=>state.auth.user)
+  const userData=useSelector((state:RootState)=>state.auth.user)
+  const token=userData?.token
+  const user=userData?.user
   const [tasks, setTasks] = useState<Task[]>([]);
   const [logs,setLogs]=useState<Log[]>([])
   const {data,error,isLoading}=useQuery({
@@ -206,7 +208,7 @@ const BoardPage: React.FC = () => {
                 // Update task status in backend
                 const res = await axios.put(`${ApiURL}/api/tasks/${draggedTask._id}/drag-task`, {
                   status: newStatus,
-                  assignedUser:user._id
+                  assignedUser:user?._id
                 });
 
                 socket.emit("taskUpdated", res.data);
@@ -215,8 +217,8 @@ const BoardPage: React.FC = () => {
                 await logAction({
                   actionType: "move",
                   taskId: draggedTask._id,
-                  userId: user._id, // replace with actual user if needed
-                  details: `${user.username}: Task "${draggedTask.title}" moved to ${newStatus}`,
+                  userId: user?._id, // replace with actual user if needed
+                  details: `${user?.username}: Task "${draggedTask.title}" moved to ${newStatus}`,
                 })
               } catch (error) {
                 console.error("Failed to update task status", error);
