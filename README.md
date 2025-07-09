@@ -64,3 +64,112 @@ A full-stack real-time Kanban-style task board built using the **MERN stack** wi
 
 ## 📁 Project Structure
 
+Collab-Board/
+  backend/
+    app.ts
+    configs/
+      db.ts
+    controllers/
+      AuthController.ts
+      LogController.ts
+      TaskController.ts
+    middleware/
+      auth.ts
+    models/
+      LogModel.ts
+      TaskModel.ts
+      UserModel.ts
+    package-lock.json
+    package.json
+    routes/
+      AuthRoute.ts
+      LogRoute.ts
+      TaskRoute.ts
+    tsconfig.json
+    types/
+      express/
+        index.d.ts
+  frontend/
+    eslint.config.js
+    index.html
+    package-lock.json
+    package.json
+    public/
+      vite.svg
+    README.md
+    src/
+      App.css
+      App.tsx
+      assets/
+        react.svg
+      components/
+        auth/
+          LoginPage.tsx
+          RegisterPage.tsx
+        Pages/
+          BoardPage.tsx
+          CreateTask.tsx
+          EditTask.tsx
+        tasks/
+          TaskCard.tsx
+      index.css
+      lib/
+        socket.ts
+      main.tsx
+      redux/
+        slices/
+          AuthSlice.ts
+        store/
+          store.ts
+      services/
+        AuthService.ts
+        TaskService.ts
+      styles/
+        BoardPage.css
+        CreateTask.css
+        LoginPage.css
+      utils/
+        logAction.ts
+      vite-env.d.ts
+    tsconfig.app.json
+    tsconfig.json
+    tsconfig.node.json
+    vite.config.ts
+  LICENSE
+  README.md
+
+  
+---
+
+## 📦 Installation & Setup
+
+### 🧪 Backend (Express + TS)
+
+```bash
+cd backend
+npm install
+npm run dev
+
+
+Create .env in backend/:
+
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+
+## 📦 Installation & Setup
+
+### 🧪 Frontend (React + Vite + TS)
+
+cd frontend
+npm install
+npm run dev
+
+## Socket.IO Events
+
+Event	Direction	Description
+taskCreated	Server → Client	Broadcasts new task to all users
+taskUpdated	Server → Client	Broadcasts task updates
+taskDeleted	Server → Client	Notifies all clients to remove task
+newLog	Server → Client	Updates activity log in real-time
+
