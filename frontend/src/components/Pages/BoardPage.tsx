@@ -212,8 +212,8 @@ const BoardPage: React.FC = () => {
           </p>
   
           {/* Login Link/Button */}
-          <a 
-            href="/login"
+          <Link 
+            to="/login"
             style={{
               display: 'inline-block',
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -230,7 +230,7 @@ const BoardPage: React.FC = () => {
             }}
           >
             Go to Login
-          </a>
+          </Link>
   
           {/* Additional Info */}
           <div style={{
@@ -247,8 +247,8 @@ const BoardPage: React.FC = () => {
             }}>
               Don't have an account?
             </p>
-            <a 
-              href="/register"
+            <Link 
+              to="/register"
               style={{
                 color: '#667eea',
                 textDecoration: 'none',
@@ -257,7 +257,7 @@ const BoardPage: React.FC = () => {
               }}
             >
               Create one here
-            </a>
+            </Link>
           </div>
         </div>
       </div>
