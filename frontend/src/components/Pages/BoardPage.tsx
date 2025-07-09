@@ -155,10 +155,6 @@ const BoardPage: React.FC = () => {
     );
   }
 
-  if(!token){
-    return <Link to={"/login"}>Login</Link>
-  }
-
 
   return (
     <div className="container">
