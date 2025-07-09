@@ -2,10 +2,16 @@
 import axios from "axios";
 import socket from "../lib/socket";
 import { ApiURL } from "../services/AuthService";
-import type { Log } from "../components/Pages/BoardPage";
+
+interface Log{
+  actionType:string;
+  taskId:string;
+  userId:string;
+  details:string
+}
 
 
-export const logAction = async (logData: Log) => {
+export const logAction = async (logData:Log) => {
   // Show log immediately (optimistic UI)
   console.log("call")
   socket.emit("newLog", logData); // optional, for real-time emit
