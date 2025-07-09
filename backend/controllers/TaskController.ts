@@ -13,7 +13,7 @@ export const createTask=async(req:Request,res:Response)=>{
             return res.status(404).json({message:"This title already exist"})
         }
         const createTask=await Task.create({
-            createdBy:userData._id,title,description,priority
+            createdBy:userData?._id,title,description,priority
         })
         if(!createTask){
             return res.status(404).json({message:"Error while creating task"})
