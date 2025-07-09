@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -9,7 +9,7 @@ import type { DropResult } from "@hello-pangea/dnd";
 import { getAllTasks } from "../../services/TaskService";
 import { useQuery } from "@tanstack/react-query";
 import { TaskCard } from "../tasks/TaskCard";
-import { Link, useNavigate} from "react-router-dom";
+import { Link} from "react-router-dom";
 import socket from "../../lib/socket";
 import axios from "axios";
 import { ApiURL } from "../../services/AuthService";
@@ -50,11 +50,10 @@ export interface Log {
 }
 
 
-const BoardPage = () => {
+const BoardPage: React.FC = () => {
   const userData=useSelector((state:RootState)=>state.auth.user)
   const token=userData?.token
   const user=userData?.user
-  const navigate=useNavigate()
   const [tasks, setTasks] = useState<Task[]>([]);
   const [logs,setLogs]=useState<Log[]>([])
   const {data,error,isLoading}=useQuery({
@@ -157,7 +156,112 @@ const BoardPage = () => {
   }
 
   if(!token){
-    return navigate("/login")
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        padding: '20px'
+      }}>
+        <div style={{
+          background: 'white',
+          borderRadius: '16px',
+          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15)',
+          padding: '60px 40px',
+          textAlign: 'center',
+          maxWidth: '500px',
+          width: '100%'
+        }}>
+          {/* Icon */}
+          <div style={{
+            width: '80px',
+            height: '80px',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 24px',
+            fontSize: '32px'
+          }}>
+            🔐
+          </div>
+  
+          {/* Title */}
+          <h1 style={{
+            color: '#2d3748',
+            fontSize: '32px',
+            fontWeight: '700',
+            margin: '0 0 12px 0',
+            lineHeight: '1.2'
+          }}>
+            Access Required
+          </h1>
+  
+          {/* Subtitle */}
+          <p style={{
+            color: '#718096',
+            fontSize: '18px',
+            margin: '0 0 32px 0',
+            lineHeight: '1.5'
+          }}>
+            You need to be logged in to access this page. Please sign in to continue.
+          </p>
+  
+          {/* Login Link/Button */}
+          <a 
+            href="/login"
+            style={{
+              display: 'inline-block',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              textDecoration: 'none',
+              padding: '16px 32px',
+              borderRadius: '12px',
+              fontSize: '18px',
+              fontWeight: '600',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)',
+              cursor: 'pointer',
+              border: 'none'
+            }}
+          >
+            Go to Login
+          </a>
+  
+          {/* Additional Info */}
+          <div style={{
+            marginTop: '32px',
+            padding: '20px',
+            background: '#f8fafc',
+            borderRadius: '12px',
+            border: '1px solid #e2e8f0'
+          }}>
+            <p style={{
+              color: '#4a5568',
+              fontSize: '14px',
+              margin: '0 0 8px 0'
+            }}>
+              Don't have an account?
+            </p>
+            <a 
+              href="/register"
+              style={{
+                color: '#667eea',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '500'
+              }}
+            >
+              Create one here
+            </a>
+          </div>
+        </div>
+      </div>
+    );
   }
 
 
