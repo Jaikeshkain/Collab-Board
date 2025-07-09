@@ -47,7 +47,7 @@ const CreateTask = () => {
           actionType: "create",
           taskId: data.createTask._id,
           userId: user._id,
-          details: `'${data.createTask.title}'`
+          details: `'${user?.username} create new task ${data.createTask.title}'`
     });
     }
   })
